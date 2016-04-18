@@ -1,12 +1,6 @@
 (module interface (lib "plt-pretty-big-text.ss" "lang")
   
-  ;; DO NOT MODIFY THIS FILE!  It contains routines provided by us, and
-  ;; must operate exactly as given.  If you make changes, and then submit
-  ;; code that relies on those changes, there is no guarantee that your
-  ;; code will work at all with our tests.
-  
-  ;; Note that the drawing code uses advanced, non-functional aspects of
-  ;; Scheme that you aren't expected to understand.
+  ;; DO NOT MODIFY THIS FILE!
   
   (require (lib "graphics.ss" "graphics"))
   (open-graphics)
@@ -137,10 +131,6 @@
   ;;      state (e.g., draws it on the screen), or false to indicate 
   ;;      nothing should be done.
   ;;  * a-state -- the initial state.
-  ;;
-  ;; This function uses almost entirely course-based ideas, with the
-  ;; sole exception of the extra code to call the viz function in
-  ;; find-route.
   
   (define (search at-end? neighbours viz a-state)
     (local
@@ -173,8 +163,7 @@
   ;; lists-equiv?: (listof X) (listof X) -> boolean
   ;; Given two lists l1 and l2, determine whether the lists are essentially
   ;; the same up to reordering.  This function will work as long as one of
-  ;; the two lists contains no duplicates.  Not really part of this assignment,
-  ;; but generally useful in tests where we don't care about ordering.
+  ;; the two lists contains no duplicates.
   
   ;; Examples:
   ; (check-expect (lists-equiv? '("1" "2" "3") '("2" "3" "1")) true)
@@ -192,7 +181,7 @@
   ;; strlist->grid: (listof String) -> (listof (listof Character))
   ;; Turn a list of (equal length) strings into a grid by breaking each
   ;; string into its constituent characters.
-  ;;
+  
   ;; Examples:
   ;(check-expect (strlist->grid empty) empty)
   ;(check-expect (strlist->grid '("abc" "def")) '((#\a #\b #\c) (#\d #\e #\f)))
@@ -225,8 +214,6 @@
   
   ;; A complete set of 12 pentominoes tiles a 6x10 rectangle,
   ;; a 5x12 rectangle, a 4x15 rectangle, and a 3x20 rectangle.
-  ;; For convenience, define twelve individual constants first,
-  ;; using the conventional names.
   
   (define p/F (strlist->grid '(".FF" "FF." ".F.")))
   (define p/I (strlist->grid '("IIIII")))
@@ -246,21 +233,14 @@
   
   ;; Construct ten copies of the Y pentomino, each with a different letter
   ;; name.  These can fill a 5x10 rectangle.
+  
   (define 10y
     (map strlist->grid
          (map (lambda (x) (list (string x x x x) (string #\. x #\. #\.)))
               (string->list "ABCDEFGHIJ"))))
   
   ;; What follows is a complete set of partial puzzles for one 6x10 
-  ;; pentomino solution.  While developing your code, you should be able
-  ;; to test by starting with
-  ;;    (solve-puzzle pent-grid-12 pent-pieces-12 'offline)
-  ;; and working your way backwards from 12 down to 0, each time having
-  ;; to be responsible for placing more of the pieces.  Note that as you get
-  ;; down to emptier puzzles, these puzzles start to have multiple solutions.
-  ;; You may find that your algorithm produces solutions that are different
-  ;; than pent-solution below.  That's fine, as long as you can verify that
-  ;; the solution is self-consistent.
+  ;; pentomino solution.
   
   (define pent-solution 
     (list "FFIIIIILZZ" "VFFYLLLLZN" "VFYYYYXZZN"
